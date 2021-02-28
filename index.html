@@ -8,79 +8,36 @@
     <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-<div class="dice">
-    <ol class="die-list even-roll" data-roll="1" id="die-1">
-        <li class="die-item" data-side="1">
-            <span class="dot"></span>
-        </li>
-        <li class="die-item" data-side="2">
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </li>
-        <li class="die-item" data-side="3">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </li>
-        <li class="die-item" data-side="4">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </li>
-        <li class="die-item" data-side="5">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </li>
-        <li class="die-item" data-side="6">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </li>
-    </ol>
-    <ol class="die-list odd-roll" data-roll="1" id="die-2">
-        <li class="die-item" data-side="1">
-            <span class="dot"></span>
-        </li>
-        <li class="die-item" data-side="2">
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </li>
-        <li class="die-item" data-side="3">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </li>
-        <li class="die-item" data-side="4">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </li>
-        <li class="die-item" data-side="5">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </li>
-        <li class="die-item" data-side="6">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </li>
-    </ol>
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+<h1>Flat Palindromic Spirit</h1>
+<div class="inputs">
+    <div class="meta" id="m-wordy">
+        <label for="wordy" class="meta-label">Wordy</label>
+        <input class ="meta-input" type="number" id="wordy" value="1" min="0" max="10">
+    </div>
+    <div class="meta" id="m-oddball">
+        <label for="oddball" class="meta-label">Oddball</label>
+        <input class ="meta-input" type="number" id="oddball" value="2" min="0" max="10">
+    </div>
+    <div class="meta" id="m-fiendish">
+        <label for="fiendish" class="meta-label">Fiendish</label>
+        <input class ="meta-input" type="number" id="fiendish" value="2" min="0" max="10">
+    </div>
+    <div class="meta" id="m-related">
+        <label for="related" class="meta-label">Related</label>
+        <input class ="meta-input" type="number" id="related" value="1" min="0" max="10" step="1">
+    </div>
+    <button class="glow-on-hover" type="button" id="create-categories">New Categories!</button>
 </div>
-<button type="button" id="roll-button">Roll Dice</button>
+
+<div id="cats"></div>
+
+<div id="selected_div">
+    <label for="answer"></label>
+    <input type="text" id="answer" placeholder="What links these??">
+    <input type="submit" value="Submit">
+</div>
+
 <script src="./app.js"></script>
 </body>
 </html>
