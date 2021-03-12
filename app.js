@@ -4,6 +4,82 @@ document.getElementById("create-categories")
 document.getElementById("submit_selected")
     .addEventListener('click', addSubmitted)
 
+let currently_selected = [];
+
+function generateCategories() {
+    clear_selected();
+    clear_answers();
+
+    let cats = generate_cats();
+    let cats_list = document.getElementById("cats")
+    cats_list.innerHTML = ''
+
+    cats.forEach(function (cat, index) {
+        const new_cat = create_new_cat(index);
+        const new_number = create_new_number(index);
+        const new_text = create_new_text(cat);
+
+        cats_list.appendChild(new_cat);
+        new_cat.appendChild(new_number)
+        new_number.after(new_text)
+    })
+}
+
+function addSubmitted() {
+    if (currently_selected.length < 3) {
+        alert("Select at least 3 categories that you're linking")
+        return
+    }
+
+    const input = document.getElementById("answer")
+    if (input.value === '') {
+        alert("Can you find something that links these categories?")
+        return
+    }
+
+    const answersList = document.getElementById("answers")
+    let new_answer = document.createElement("div")
+    new_answer.classList.add("answer")
+
+    // TODO validate input
+
+    let new_answer_numbers = document.createElement("div")
+    new_answer_numbers.classList.add("answer-numbers")
+    currently_selected.forEach(val => {
+        let new_number = document.createElement("button")
+        new_number.classList.add("answer-number")
+        new_number.textContent = val
+        new_answer_numbers.appendChild(new_number)
+    })
+
+    let new_text = document.createElement("p")
+    new_text.textContent = input.value
+
+
+    new_answer.appendChild(new_answer_numbers)
+    new_answer.appendChild(new_text)
+
+    answersList.appendChild(new_answer)
+
+    input.value = ''
+    clear_selected()
+    uncheckAllCategories()
+}
+
+function generate_cats() {
+    let cats = [];
+    metas.forEach(meta => {
+        const num = parseInt(document.getElementById(meta).value)
+        const list = cat_dict[meta]
+
+        let a = sample(list, num)
+        if (a) {
+            cats = cats.concat(a)
+        }
+    })
+    return cats;
+}
+
 function clear_selected() {
     currently_selected = []
     let to_delete = []
@@ -11,6 +87,10 @@ function clear_selected() {
             to_delete.push(node)
     })
     to_delete.forEach(e => e.remove())
+}
+
+function clear_answers() {
+    document.getElementById("answers").innerHTML = ''
 }
 
 function create_new_cat(index) {
@@ -43,33 +123,6 @@ function create_new_text(cat) {
     return new_text;
 }
 
-function generateCategories() {
-    clear_selected();
-
-    let cats = [];
-    metas.forEach(meta => {
-        const num = parseInt(document.getElementById(meta).value)
-        const list = cat_dict[meta]
-
-        let a = sample(list, num)
-        if (a) {cats  = cats.concat(a)}
-    })
-
-    let cats_list = document.getElementById("cats")
-    cats_list.innerHTML = ''
-    cats_list.style.display = "flex"
-
-    cats.forEach(function (cat, index) {
-        const new_cat = create_new_cat(index);
-        const new_number = create_new_number(index);
-        const new_text = create_new_text(cat);
-
-        cats_list.appendChild(new_cat);
-        new_cat.appendChild(new_number)
-        new_number.after(new_text)
-    })
-}
-
 function sample(list, n) {
     let result = new Array(n),
         len = list.length,
@@ -83,8 +136,6 @@ function sample(list, n) {
     }
     return result;
 }
-
-let currently_selected = [];
 
 function remove_from_selected(val) {
     currently_selected = currently_selected.filter(a => a !== val)
@@ -112,35 +163,6 @@ function add_to_selected(val) {
     }
 }
 
-function addSubmitted() {
-    const answersList = document.getElementById("answers")
-    const input = document.getElementById("answer")
-    let new_answer = document.createElement("div")
-    new_answer.classList.add("answer")
-
-    let new_answer_numbers = document.createElement("div")
-    new_answer_numbers.classList.add("answer-numbers")
-    currently_selected.forEach(val => {
-        let new_number = document.createElement("button")
-        new_number.classList.add("answer-number")
-        new_number.textContent = val
-        new_answer_numbers.appendChild(new_number)
-    })
-
-    let new_text = document.createElement("p")
-    new_text.textContent = input.value
-
-
-    new_answer.appendChild(new_answer_numbers)
-    new_answer.appendChild(new_text)
-
-    answersList.appendChild(new_answer)
-
-    input.value = ''
-    clear_selected()
-    uncheckAllCategories()
-}
-
 function uncheckAllCategories() {
     document.getElementById("cats").childNodes.forEach(cat => {
         if (cat.classList.contains("checked")) {
@@ -148,7 +170,6 @@ function uncheckAllCategories() {
         }
     })
 }
-
 
 const metas = ["wordy", "oddball", "fiendish"]
 
