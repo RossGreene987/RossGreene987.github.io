@@ -37,11 +37,12 @@ function addSubmitted() {
         return
     }
 
+    // TODO make removable
+
     const answersList = document.getElementById("answers")
     let new_answer = document.createElement("div")
     new_answer.classList.add("answer")
 
-    // TODO validate input
 
     let new_answer_numbers = document.createElement("div")
     new_answer_numbers.classList.add("answer-numbers")
