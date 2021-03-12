@@ -17,28 +17,26 @@
     </div>
     <div class="meta" id="m-oddball">
         <label for="oddball" class="meta-label">Oddball</label>
-        <input class ="meta-input" type="number" id="oddball" value="2" min="0" max="10">
+        <input class ="meta-input" type="number" id="oddball" value="3" min="0" max="10">
     </div>
     <div class="meta" id="m-fiendish">
         <label for="fiendish" class="meta-label">Fiendish</label>
         <input class ="meta-input" type="number" id="fiendish" value="2" min="0" max="10">
     </div>
-    <div class="meta" id="m-related">
-        <label for="related" class="meta-label">Related</label>
-        <input class ="meta-input" type="number" id="related" value="1" min="0" max="10" step="1">
-    </div>
     <button class="glow-on-hover" type="button" id="create-categories">New Categories!</button>
 </div>
 
 <div id="cats"></div>
-
 <div id="selected_div">
+    <div id="selected_numbers"></div>
     <label for="answer"></label>
     <input type="text" id="answer" placeholder="What links these??">
-    <input type="submit" value="Submit">
+
+    <input id="submit_selected" type="submit" value="Submit">
 </div>
+
+<div id="answers"></div>
 
 <script src="./app.js"></script>
 </body>
 </html>
-

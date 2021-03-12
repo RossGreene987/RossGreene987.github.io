@@ -55,6 +55,7 @@ body > div {
 
 
 .inputs {
+    justify-content: center;
     display: flex;
     flex-direction: row;
 }
@@ -63,7 +64,7 @@ body > div {
     display: flex;
     flex-direction: column;
 
-    margin: 20px 20px 20px 20px;
+    margin: 5px 15px;
     padding: 10px;
 }
 
@@ -170,10 +171,8 @@ body > div {
 }
 
 #cats {
-    /*display: none;*/
-    width: 60%;
-    /*display: flex;*/
-    flex-wrap: wrap;
+    width: auto;
+    display: flex;
     flex-direction: column;
 }
 
@@ -181,7 +180,7 @@ body > div {
     display: flex;
     flex-direction: row;
 
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: transparent;
 }
 
@@ -211,10 +210,8 @@ button {
 .cat-button.checked > * {
     background-color: orangered;
     border: #ff00c8;
-    border-radius: 5px;
     color:black;
 }
-
 
 .cat-button > .text {
     width: 500px;
@@ -224,32 +221,54 @@ button {
     width: auto;
 }
 
-#selected_div > button {
+#selected_div {
+    width:auto;
+    display: flex;
+    flex-direction: row;
+}
+
+#selected_numbers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    width: 160px;
+}
+
+#selected_numbers > button {
     background-color: orangered;
-    width: auto;
+}
+
+#answers {
+    display: flex;
+    flex-direction: column;
+}
+
+.answer {
+    display: flex;
+    flex-direction: row;
+}
+
+.answer-numbers {
+    display: flex;
+    flex-direction: row;
 }
 
 div:empty {
     display: none;
 }
-
-
-input[type=text], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+#answers:empty {
+    display: none;
+}
+#cats:empty {
+    display:None
 }
 
 input[type=submit] {
-    width: 100%;
     background-color: #4CAF50;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
+    padding: 5px 10px;
+    margin: 5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;

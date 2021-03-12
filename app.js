@@ -1,14 +1,46 @@
 document.getElementById("create-categories")
     .addEventListener('click', generateCategories)
 
+document.getElementById("submit_selected")
+    .addEventListener('click', addSubmitted)
+
 function clear_selected() {
+    currently_selected = []
     let to_delete = []
-    document.getElementById("selected_div").childNodes.forEach(node => {
-        if (node.classList != null && node.classList.contains("select")) {
+    document.getElementById("selected_numbers").childNodes.forEach(node => {
             to_delete.push(node)
-        }
     })
     to_delete.forEach(e => e.remove())
+}
+
+function create_new_cat(index) {
+    const new_cat = document.createElement('div')
+    new_cat.className = "cat-button"
+    new_cat.addEventListener('click', function () {
+        // doesn't work
+        if (new_cat.classList.contains("checked")) {
+            new_cat.classList.remove("checked");
+            remove_from_selected(index + 1)
+        } else {
+            new_cat.classList.add("checked");
+            add_to_selected(index + 1)
+        }
+    })
+    return new_cat;
+}
+
+function create_new_number(index) {
+    const new_number = document.createElement('button')
+    new_number.className = "cat-button number"
+    new_number.textContent = String(index + 1)
+    return new_number;
+}
+
+function create_new_text(cat) {
+    const new_text = document.createElement('button')
+    new_text.className = "cat-button text"
+    new_text.textContent = cat
+    return new_text;
 }
 
 function generateCategories() {
@@ -28,27 +60,9 @@ function generateCategories() {
     cats_list.style.display = "flex"
 
     cats.forEach(function (cat, index) {
-        const new_cat = document.createElement('div')
-        const new_number = document.createElement('button')
-        const new_text = document.createElement('button')
-
-        new_cat.className = "cat-button"
-        new_cat.addEventListener('click', function() {
-            // doesn't work
-            if (new_cat.classList.contains("checked")){
-                new_cat.classList.remove("checked");
-                remove_from_selected(index + 1)
-            } else {
-                new_cat.classList.add("checked");
-                add_to_selected(index + 1)
-            }
-        })
-
-        new_number.className = "cat-button number"
-        new_number.textContent = String(index + 1)
-
-        new_text.className = "cat-button text"
-        new_text.textContent = cat
+        const new_cat = create_new_cat(index);
+        const new_number = create_new_number(index);
+        const new_text = create_new_text(cat);
 
         cats_list.appendChild(new_cat);
         new_cat.appendChild(new_number)
@@ -70,8 +84,11 @@ function sample(list, n) {
     return result;
 }
 
+let currently_selected = [];
+
 function remove_from_selected(val) {
-    document.getElementById("selected_div").childNodes.forEach(node => {
+    currently_selected = currently_selected.filter(a => a !== val)
+    document.getElementById("selected_numbers").childNodes.forEach(node => {
         if (node.textContent === String(val)) {
             node.remove()
         }
@@ -79,13 +96,61 @@ function remove_from_selected(val) {
 }
 
 function add_to_selected(val) {
+    currently_selected.push(val)
+    currently_selected.sort()
+
     const new_button = document.createElement("button")
     new_button.textContent = String(val)
-    new_button.classList.add("select")
-    document.getElementById("selected_div").appendChild(new_button)
+    new_button.classList.add("cat_button")
+
+    const all_numbers = document.getElementById("selected_numbers")
+    if (all_numbers.children.length === 0) {
+        all_numbers.appendChild(new_button)
+    } else {
+        const pos = currently_selected.indexOf(val)
+        all_numbers.insertBefore(new_button, all_numbers.children[pos])
+    }
 }
 
-const metas = ["wordy", "oddball", "fiendish", "related"]
+function addSubmitted() {
+    const answersList = document.getElementById("answers")
+    const input = document.getElementById("answer")
+    let new_answer = document.createElement("div")
+    new_answer.classList.add("answer")
+
+    let new_answer_numbers = document.createElement("div")
+    new_answer_numbers.classList.add("answer-numbers")
+    currently_selected.forEach(val => {
+        let new_number = document.createElement("button")
+        new_number.classList.add("answer-number")
+        new_number.textContent = val
+        new_answer_numbers.appendChild(new_number)
+    })
+
+    let new_text = document.createElement("p")
+    new_text.textContent = input.value
+
+
+    new_answer.appendChild(new_answer_numbers)
+    new_answer.appendChild(new_text)
+
+    answersList.appendChild(new_answer)
+
+    input.value = ''
+    clear_selected()
+    uncheckAllCategories()
+}
+
+function uncheckAllCategories() {
+    document.getElementById("cats").childNodes.forEach(cat => {
+        if (cat.classList.contains("checked")) {
+            cat.classList.remove("checked");
+        }
+    })
+}
+
+
+const metas = ["wordy", "oddball", "fiendish"]
 
 const wordyCats = [
     "Begins with a vowel",
@@ -168,27 +233,8 @@ const fiendishCats = [
     "In a 2-word phrase with a colour"
 ]
 
-const relatedCats = [
-    "Related to Harry Potter",
-    "Related to Plants",
-    "Related to Christmas",
-    "Relted to religion",
-    "Related to Shakespeare",
-    "Related to royalty",
-    "Related to time",
-    "Related to animals",
-    "Related to hair",
-    "Related to the Olympics",
-    "Related to cookery",
-    "Related to transport",
-    "Related to weddings",
-    "Related to disease",
-    "Related to luck or superstition"
-]
-
 cat_dict = {
     "wordy": wordyCats,
     "oddball": oddballCats,
     "fiendish": fiendishCats,
-    "related": relatedCats
 }
