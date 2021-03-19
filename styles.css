@@ -18,7 +18,7 @@ body {
     justify-content: center;
 
     height: 100%;
-    width: 80%;
+    width: 100%;
 }
 
 body * {
@@ -26,6 +26,7 @@ body * {
 }
 
 h1 {
+    width: 90vw;
     text-align: center;
     font-family: 'Oswald', Helvetica, sans-serif;
     font-size: 70px;
@@ -64,7 +65,7 @@ body > div {
     display: flex;
     flex-direction: column;
 
-    margin: 5px 15px;
+    margin: 5px;
     padding: 10px;
 }
 
@@ -214,7 +215,7 @@ button {
 }
 
 .cat-button > .text {
-    width: 500px;
+    width: min(500px, 70vw);
 }
 
 .cat-button > .number {
@@ -358,4 +359,18 @@ input[type=submit]:hover {
 @keyframes fadeIn {
     0% { opacity:0; }
     100% { opacity:100%; }
+}
+
+@media (max-width: 700px) {
+    .inputs {
+        flex-direction: column;
+    }
+
+    #selected_div {
+        flex-direction: column;
+    }
+
+    .answer {
+        flex-direction: column;
+    }
 }
